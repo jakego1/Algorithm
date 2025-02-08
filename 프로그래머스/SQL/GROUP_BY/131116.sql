@@ -1,0 +1,13 @@
+SELECT
+       A.CATEGORY
+     , A.PRICE
+     , A.PRODUCT_NAME
+  FROM FOOD_PRODUCT A
+ GROUP BY A.CATEGORY, A.PRICE, A.PRODUCT_NAME
+HAVING A.CATEGORY IN ('과자', '국', '김치', '식용유')
+   AND A.PRICE = ( 
+                  SELECT MAX(B.PRICE) 
+                    FROM FOOD_PRODUCT B 
+                   WHERE B.CATEGORY = A.CATEGORY
+       )
+ ORDER BY A.PRICE DESC;
